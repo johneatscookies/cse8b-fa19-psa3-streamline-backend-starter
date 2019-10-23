@@ -178,7 +178,7 @@ In this constructor:
 
 1. Initialize the board with the given parameters and fill it with `SPACE_CHAR`s.
 1. Put `PLAYER_CHAR` and `GOAL_CHAR` on the board in their respective positions.
-1. Initialize all other instance variables with the given parameters.
+1. Initialize all other instance variables with the given parameters. Remember to initialize `levelPassed` (how do we know if the level is already over?). 
 
 **Note**: We are not defining a no-arg constructor in GameState. Usually Java initializes an implicit no-arg constructor if we do not define any constructors at all. If a class has defined constructors, we need to explicitly define a no-arg constructor ourselves if we want to have one.
 

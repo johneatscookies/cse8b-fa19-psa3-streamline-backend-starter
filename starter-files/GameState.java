@@ -20,12 +20,12 @@ public class GameState
 
 
     /* Instance variables, do not add any */
-    char[][] board;
-    int playerRow;
-    int playerCol;
-    int goalRow;
-    int goalCol;
-    boolean levelPassed;
+    char[][] board; // 2-D array containing the tiles of the board, each tile has a value
+    int playerRow; // the row of the playerin the board (0-indexing), access using board[playerRow][playerCol]
+    int playerCol; // the column of the player in the board (0-indexing)
+    int goalRow; // the row of the goal in the board (0-indexing)
+    int goalCol; // the colum of the goal in the board (0-indexing)
+    boolean levelPassed; // denotes whether the level is passed
 
     public GameState(int height, int width, int playerRow, int playerCol, int goalRow, int goalCol)
     {
