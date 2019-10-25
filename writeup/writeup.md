@@ -241,9 +241,9 @@ Your goal is to build and return a String in the same format as the given exampl
 * There is a **space** Char between the element and the left/right side border. There is no space after the right side border.
 * There is a **newline** Char at the end of each row, **including** at the end of the last row
 
-As an example, the second row of the board in the sample output above is the following with 'Sp' denoting a space character (bolded **Sp** = space char in `this.board`):
+As an example, the topmost row of the board in the sample output above is the following with 'Sp' denoting a space character (bolded **Sp** = space char in `this.board`):
 
-> |Sp**Sp**Sp**O**Sp**Sp**Sp**Sp**Sp**Sp**Sp|\n
+> |Sp**O**Sp**Sp**Sp**Sp**Sp**Sp**Sp**G**Sp|\n
 
 Note that there are five bolded characters in the output above. Each bolded character represents one column of the second row on the grid. 
 
