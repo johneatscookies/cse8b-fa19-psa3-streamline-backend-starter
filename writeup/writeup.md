@@ -298,6 +298,22 @@ Hints:
 
 **Note**: You will also have to rotate the zappers along with rotating their position. 
 
+#### indexOfZapper() (OPTIONAL)
+This is a helper method that we made to help our implementation of `rotateCounterClockwise()`. It is not required and will not be graded, but you may find it useful too. 
+
+First, create a new constant array of chars: 
+```java
+final static char[] ZAP_CHARS = new char[]{LEFT_ZAP_CHAR, UP_ZAP_CHAR, RIGHT_ZAP_CHAR, DOWN_ZAP_CHAR}; 
+```
+
+Now, we can write `indexOfZapper()` to return the index of the passed in zapper character in the `ZAP_CHARS` array. Before you ask, this is not hard-coding. You should expect the following input/output mappings: 
+```java
+indexOfZapper(LEFT_ZAP_CHAR) == 0; 
+indexOfZapper(UP_ZAP_CHAR) == 1; 
+indexOfZapper(RIGHT_ZAP_CHAR) == 2; 
+indexOfZapper(DOWN_ZAP_CHAR) == 3; 
+```
+
 #### moveLeft()
 ```java
 void moveLeft()
