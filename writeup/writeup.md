@@ -619,6 +619,10 @@ d. What single command will list every file and directory in the current directo
 
 e. What single command will create a file called `CSE.rocks` in the current directory (without leaving the terminal by, for example, entering vim)?
 
+#### 4. CSE8B Experience Survey
+Please complete the following survey and note down in your README that you have completed it. 
+https://docs.google.com/forms/d/1EBvKzbpXMdjT9hlPz5raGsbgAi6p9dMpKJ0yWHvmJEU/
+
 ### Style
 We will grade your code style thoroughly. Namely, there are a few things you must have in each file / class / method:
 
@@ -642,7 +646,7 @@ Submit the following files for **checkpoint submission by October 29** (do not s
 
 Submit these files for **final submission by November 5** (do not submit anything else):
 
-* `README.md` (3 sections)
+* `README.md` (4 sections)
 * `GameState.java`
 * `Streamline.java`
 
