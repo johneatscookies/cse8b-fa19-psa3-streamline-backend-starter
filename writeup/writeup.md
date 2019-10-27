@@ -396,7 +396,270 @@ Write different method calls and print statements to sufficiently test out all c
 ## Checkpoint Submission
 You must submit your `GameState.java` by **October 29th** to GradeScope.
 
-We will not grade on style for the Checkpoint, but we will for the final submission (including both `GameState.java` when you submit it again in the final submission).
+We will not grade on style for the Checkpoint, but we will for the final submission (including `GameState.java` when you submit it again in the final submission).
 
 ## After-Checkpoint (Streamline.java) and Extra Credit
-The instructions for this portion will be added to this writeup on Saturday, October 26th, so you can get a head-start on the final submission early. 
+You may find this diagram useful for understanding `Streamline.java`.
+
+![](./writeup_pics/streamline.png)
+
+## Streamline.java
+This class defines how the player controls the pieces of the Streamline game and how the game is updated when the player inputs moves.
+
+**We recommend that you implement the methods in this class in the same order you find them here in the write-up.**
+
+### Instance Variables
+
+**Do not add any instance variables to Streamline.java. You should be able to implement it with those given:**
+```java
+GameState currentState
+```
+This is the current GameState at play that needs to be updated with every move that the player makes. 
+```java
+List<GameState> previousStates
+```
+This is a list of all the previous GameState objects of the game being played. You will need to make sure you record all the previous GameState objects here, so you can retrieve previous game states to simulate undoing moves. For List documentation, go [here](https://docs.oracle.com/javase/10/docs/api/java/util/List.html). 
+
+### Methods
+
+#### Constructor I
+```java
+public Streamline()
+```
+This is the no-argument constructor of Streamline.
+1. Initialize currentState with DEFAULT_HEIGHT and DEFAULT_WIDTH as the dimensions, with the player position at the lower left corner of the board, and with the goal position at the top right corner of the board. 
+1. Add 3 random obstacles to the current state.
+1. Add 3 random zappers to the current state. 
+1. Initialize previousStates to an empty ArrayList (meaning there have been no previous states yet).
+
+#### Constructor II
+```java
+public Streamline(String filename)
+```
+This constructor's code is provided below. **Don't change it, just type it into the method in your file**. To make it fully functional, you must implement the `loadFromFile()` helper method that it uses. 
+```java
+try
+{
+   loadFromFile(filename);
+}
+catch (IOException e)
+{
+   e.printStackTrace();
+}
+this.previousStates = new ArrayList<GameState>();
+```
+
+#### play()
+```java
+void play()
+```
+This method handles the interactive part of the program. **You should implement this method first before the other non-constructor methods**. This will let you have a way to debug the other methods by simply running the program once this method is complete. **But read through all the instructions before writing the play method!**
+
+
+In this method, construct a loop to:
+1. Print out the current game state (using the previously-written `toString()` and `System.out.print()`). We will not use `System.out.println()` since we already included a newline at the end of our `toString()`'s output. 
+1. Print out "> ", (greater-than sign, space). There is no newline, so make sure you use `System.out.print()`. We don't want a newline because we want the user to be able to type their input on the same line as the prompt symbol. 
+1. Read in the user's input. You will need to use the [Scanner](https://docs.oracle.com/javase/10/docs/api/java/util/Scanner.html) class for this. Use a Scanner that will read the user's input (from `System.in`). Based on the user input, you will perform certain actions specified in the table below.
+
+
+#### Valid User Inputs: 
+The table below specifies valid user inputs and the corresponding action that must occur given that user input. All other inputs that are not specified in the table below are invalid and should be disregarded (i.e. move on and ask for an input again). Your program must not throw an exception on invalid input.
+
+![](./writeup_pics/valid_user_inputs.png)
+
+If the user's input is not a single character long, print out the following message with `System.out.println()`: 
+> "Command must be one char long." 
+and re-prompt the user to enter a command (by printing out the current state and the "> "). 
+
+If the user's one-character input is not one of the above commands, then print out the following message with `System.out.println()`: 
+> "Possible commands:\n w - up\n a - left\n s - down\n d - right\n u - undo\n o - save to file\n q - quit level"
+and re-prompt the user to enter a command (by printing out the current state and the "> "). 
+
+If the user's command causes the level to be won, do not re-prompt the user. Instead, print out the current state (using `System.out.print()`) and print the following message with `System.out.println()`: 
+> "Level passed!"
+
+Now, you can run the game using 
+```bash
+javac *.java
+java GameManager
+```
+and see your methods working as you implement them. 
+
+#### recordAndMove() 
+```java
+void recordAndMove(Direction direction) 
+```
+This method is designed to save the current state of the game before updating it. It first saves a copy of `currentState` to the list `previousStates`, and then calls `move()` in the given direction on `currentState`. If `direction` is `null`, do nothing. If your board state does not change from the previous board, then you should not add it to the list of `previousStates`. 
+
+Hint: 
+
+* Because all the hard work was already done by methods in the `GameState` class, this should be a very short method with just a few lines.
+* Think about what could go wrong if you append `currentState` (instead of a copy) to `previousStates`.
+* Remember that you have coded a method to check equality. 
+
+#### undo()
+```java
+void undo()
+```
+The purpose of this method is to allow the player to undo their last step. This method should update `previousStates` and `currentState` appropriately to undo the most recent move made by the player.
+
+If `previousStates` is empty, do nothing.
+
+Hint:
+
+* Look at the documentation for previousStates. It is a [List](https://docs.oracle.com/javase/10/docs/api/java/util/List.html) object. 
+
+#### loadFromFile()
+```java
+protected void loadFromFile(String filename) throws IOException
+```
+This helper method takes in the parameter `filename`. Read the file’s contents and initialize the appropriate instance variables. After loading everything from the file, check whether the game is already over. You can assume that the file you read in will always be correctly formatted. 
+
+The file to read in has the following format: 
+
+![](./writeup_pics/loadFromFile.png)
+
+To summarize what is in the file you are reading: 
+
+1.  The first line is the board's height, a space, and then the board's width.
+
+2. The second line is the player's position row, a space, and then the player's position column.
+
+3. The third line is the goal's position row, a space, and then the goal's position column.
+
+4. Finally, there is the board. There should be a space for every empty tile of the board and a capital O for every non-empty tile. The player and the goal should also be represented on the board with their respective characters. Each line representing a row of the board has exactly the same number of characters. There are no spaces between the tiles of the board. Again, you can assume that this file is correctly formatted, i.e. it came from a properly implemented game being properly saved. Therefore, you do not need to check that the contents of the file match each other. 
+
+**Hints:**
+
+* **Always a good file**: We will always use an existing and well-formatted file when testing your program. You do not need to consider any edge cases in this method.
+* **Loadable**: You can now also run the game by using `java GameManager <filename>` (e.g. `java GameManager game.txt`) to load a game from the file.
+* **Give me some space**: Since the space character is part of the grid, we need to read the spaces, instead of ignoring them. Using `next()` from the `Scanner` class might not be a good idea since it skips all the spaces. You can look for some other method in the `Scanner` class that would be helpful to you. 
+
+#### saveToFile()
+```java
+void saveToFile() 
+```
+This method writes the Streamline game to a file in the **exact** format mentioned above (See the diagram under `loadFromFile()` for the format and explanation). Use `OUTFILE_NAME` as the filename which you will save to (See the provided constant at the top of Streamline.java). Make sure that your formatting matches the formatting specified above exactly.
+
+Once finished writing to the file, close it and print a message in the following format informing the user that the file was successfully saved:
+
+> Saved current state to: saved_streamline_game
+
+Hints:
+
+* Testing: After saving your game to a file, you should be able to load the game and run it using `java GameManager <filename>` (e.g. `java GameManager game.txt`). Ensure that the game is loaded correctly, and all components of the game are in the correct locations in the grid.
+* To write to a file, you can use [`PrintWriter`](https://docs.oracle.com/javase/10/docs/api/java/io/PrintWriter.html). Read the documentation to understand how it works and check out the methods you can use. 
+* Remember to close the PrintWriter otherwise your changes will not write to the file.
+
+## GameManager.java
+This file is given. Do not modify it.
+### main()
+```java
+public static void main(String[] args)
+```
+The main method is provided. It creates a new `Streamline` object, then use this object to call `play()`.
+
+It handles the two possible ways you can run the Streamline game from the command line: 
+
+* Create a new game:
+```
+> java GameManager
+```
+* Load a game from a file:
+```
+> java GameManager <filename> 
+```
+* Load games from our predefined game directory
+```
+> java GameManager sample_levels
+```
+
+## README, Style, Submission
+
+### `README.md`
+Answer the following questions in a file named `README.md`. Write them in sections corresponding to the section name (e.g. "1. Program Description") and numbered/lettered in the same way as the questions. 
+
+#### 1. Program Description
+
+Introduce the game of Streamline to someone who has not played it before. As usual, **don’t use Java or CSE terms**. Write concisely as if your reader needs to read 10 summaries in a row. You might want to describe how to play the game with specific keys and what the ultimate goal is.
+
+#### 2. How Did You Test Your Program?
+In previous PAs, we saw how to debug and how to write tester code as part of the assignments. These tests were based on the programs’ characteristics like parameter types and conditional statements. 
+
+a. Describe the different ways you tested your Streamline game.
+
+b. What problems might occur if you only test your game after the implementation of all your methods, rather than testing them as you go?
+
+c. Why is relying solely on visual testing not an accurate way to test your games functionality?
+
+#### 3. VIM / Linux Questions
+**Vim**:
+
+Note that a series of keystrokes is not equivalent to a command (e.g. saying "press i then backspace 3 times then esc" is not a valid answer). 
+
+a. What single command, from command mode, should be used to enter insert mode at the end of the current line regardless of where in this line you currently are?
+
+b. What single command, from command mode, should be used to attempt to move your cursor backward by 13 words?.
+
+c. What single command, from command mode, should be used to replace the character under the cursor with a 'Y' (and stay in command mode afterward)? 
+
+d. What single command, from command mode, should be used to delete the current word (and stay in command mode afterward), assuming your cursor is currently at the beginning of a word?
+
+e. What single command, from command mode, should delete the single character that your cursor is currently hovering over (and stay in command mode afterward)? 
+
+**Unix/Linux**:
+
+a. What single command will print the first 13 lines (or up to 13, if fewer than 13 lines are in the file) of `./GameState.java` to the console?
+
+b. What single command will delete the non-empty directory `./OldCode` along with all of its contents?
+
+c. What single command will make a copy of a non-empty directory from `~/../public/psa4` to your home directory (keeping the original name, `psa4`)?
+
+d. What single command will list every file and directory in the current directory (including hidden files like `.vimrc`)? Hidden files and directories are denoted by a '.' at the beginning of their names. 
+
+e. What single command will create a file called `CSE.rocks` in the current directory (without leaving the terminal by, for example, entering vim)?
+
+### Style
+We will grade your code style thoroughly. Namely, there are a few things you must have in each file / class / method:
+
+1. File header
+1. Class header
+1. Method header(s)
+1. Inline comments 
+1. Proper indentation
+1. Descriptive variable names
+1. No magic numbers
+1. Reasonably short methods (if you have implemented each method according to specification in this write-up, you’re fine). This is not enforced as strictly.
+1. Lines shorter than 80 chars (keep in mind each tab is equivalent to 8 spaces).
+1. Javadoc conventions (@param, @return tags, /** comments */, etc.).
+
+A full [style guideline](https://sites.google.com/eng.ucsd.edu/cse-8b/programming-assignments/style-guidelines?authuser=0) can be found here. If you need any clarifications, feel free to ask on Piazza.
+
+### Submission
+Submit the following files for **checkpoint submission by October 29** (do not submit anything else). We will test your GameState class and give you feedback on it before the final submission is due.
+
+* `GameState.java`
+
+Submit these files for **final submission by November 5** (do not submit anything else):
+
+* `README.md` (3 sections)
+* `GameState.java`
+* `Streamline.java`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
