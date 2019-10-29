@@ -32,7 +32,7 @@ Command [1] is safer to execute. Command [2] is more convenient -- but in the wr
 ## Frequently Asked Questions
 **Q: Can I add instance variables?**
 
-A: You are only allowed to do so in your Extra Credit file, StreamlineEC.java. All instance variables you create must be private. For GameState.java and Streamline.java, you cannot create new instance variables at all. You must ensure that the provided instance variables always store what they are supposed to store.
+A: For GameState.java and Streamline.java, you cannot create new instance variables at all. You must ensure that the provided instance variables always store what they are supposed to store.
 
 **Q: Can I add helper methods?**
 
@@ -128,7 +128,7 @@ You are provided with some instance and static variables. First, **read through 
 **Warning!**
 
 * Absolutely no hard-coding! Make sure not to hard-code when checking which shape you are trying to rotate. Hard-coding is when you write down all possible array states in your code, and use them in the method bodies of `rotateCounterClockwise()`. Instead, you must use some sort of nested loops to rotate your array. There will be severe penalties for hard-coding. (See the FAQ section for more on hard-coding). Note that checking the zapper and changing it to a different zapper is not hard coding. Hard coding simply means that the method should be general enough that, for example, different board sizes contents do not break your implementation. 
-* You may not add any additional instance variables to  `GameState.java` or `Streamline.java` other than what is provided. You may add instance variables only for the extra credit portion.
+* You may not add any additional instance variables to  `GameState.java` or `Streamline.java` other than what is provided. 
 
 ## GameState.java
 This class, as the name suggests, defined the state of the game. It defines the grid on which we will play the game and the positions of the pieces on the board. In `Streamline.java` for the final submission, you will define how the player controls the pieces. 
@@ -136,7 +136,7 @@ This class, as the name suggests, defined the state of the game. It defines the 
 ### Instance Variables
 **Warning:** 
 
-**DO NOT ADD any additional instance variables to `GameState.java`**. The only place you may introduce your own instance variables is in the extra credit portion of this assignment.
+**DO NOT ADD any additional instance variables to `GameState.java`**. 
 
 #### board
 ```java
@@ -398,7 +398,7 @@ You must submit your `GameState.java` by **October 29th** to GradeScope.
 
 We will not grade on style for the Checkpoint, but we will for the final submission (including `GameState.java` when you submit it again in the final submission).
 
-## After-Checkpoint (Streamline.java) and Extra Credit
+## After-Checkpoint (Streamline.java) 
 You may find this diagram useful for understanding `Streamline.java`.
 
 ![](./writeup_pics/streamline.png)
