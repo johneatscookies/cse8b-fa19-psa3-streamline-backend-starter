@@ -527,7 +527,7 @@ To summarize what is in the file you are reading:
 
 3. The third line is the goal's position row, a space, and then the goal's position column.
 
-4. Finally, there is the board. There should be a space for every empty tile of the board and a capital O for every non-empty tile. The player and the goal should also be represented on the board with their respective characters. Each line representing a row of the board has exactly the same number of characters. There are no spaces between the tiles of the board. Again, you can assume that this file is correctly formatted, i.e. it came from a properly implemented game being properly saved. Therefore, you do not need to check that the contents of the file match each other. 
+4. Finally, there is the board. The character from the file should just be the character you put on the board. The player and the goal should also be represented on the board with their respective characters. Each line representing a row of the board has exactly the same number of characters. There are no spaces between the tiles of the board. Again, you can assume that this file is correctly formatted, i.e. it came from a properly implemented game being properly saved. Therefore, you do not need to check that the contents of the file match each other. 
 
 **Hints:**
 
